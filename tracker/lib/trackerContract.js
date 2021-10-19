@@ -19,7 +19,12 @@ const Chaincode = class {
         console.info("========== END: Initialize Ledger ==========");
     };
 
-    async Invoke(stub){}
+    async Invoke(stub){
+        const key = "first-document";
+        const document = await stub.getState(key);
+        
+        return shim.success(Buffer.from(document.toString()));
+    };
 };
 
 shim.start(new Chaincode());
